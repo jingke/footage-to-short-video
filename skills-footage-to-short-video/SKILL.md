@@ -196,6 +196,56 @@ python scripts/make_cover.py config.json --out cover.jpg
 用户要第二个画幅时：**另开 `widescreen/` 子目录**，复制 config 改 `variant` /
 `out_w` / `out_h` 后重跑步骤 4~9，竖屏版原样保留不被覆盖。
 
+### 步骤 11：出公众号 / 小红书文案 + 配图（可选，强烈推荐）
+
+成片做好后，顺手产一套社媒文案和配图，形成「视频 + 图文」完整投放包。
+配图**从成片抽帧**（真实、零成本、风格统一），文案由 agent 按 `references/social-copy.md`
+两套不同语气各写一份。
+
+**① 抽静帧（配图素材）**
+
+```bash
+python scripts/extract_stills.py <最终成片.mp4> --out <work>/stills --count 9
+```
+
+均匀抽 9 张高质量静帧，并拼一张 `stills_sheet.jpg` 供挑封面。**长片也安全**（逐点 `-ss` 快定位，不全解）。
+
+**② 挑封面静帧**：读 `stills_sheet.jpg`（已压到可读尺寸），选主体最干净、最有「封面感」的一张，
+记下它的路径（如 `stills/still_03.jpg`）。
+
+**③ 拼社媒图**
+
+```bash
+python scripts/make_social_assets.py stills/still_03.jpg \
+    --title "青岛｜千里海岸" --subtitle "一场雨天的山海漫游" \
+    --font "<config.font>" --gold "<config.gold>" --out <work>/social
+```
+
+输出 `social/xhs_cover.jpg`（小红书 3:4 封面）+ `social/wechat_header.jpg`（公众号 2.35:1 头图），
+均带底部暗渐变 + 标题/金色副标题，手机可读。
+
+**④ 写文案**（agent 执行，不要脚本代写）：按 `references/social-copy.md` 的模板，
+读成片的 `captions[]` 叙事线，产出两个 `.md`：
+- `social/wechat_article.md` —— 公众号长文（深度/故事/温度，800~1500 字）
+- `social/xhs_post.md` —— 小红书笔记（口语/emoji/清单，含 3~6 个 #话题）
+
+两套语气不同（见模板对照表），别同一段话改个标题就发两平台。`cover.line1/line2`
+可直接当副标题母本，字幕【金色词】当金句/标签。
+
+**⑤ 交付**：把 `social/` 三个文件 + 两个 `.md` 与成片一起 `present_files` 给出。
+
+> config 可加可选 `social` 块预填文案母本，免去每次手敲：
+> ```json
+> "social": {
+>   "title": "青岛｜千里海岸",
+>   "subtitle": "一场雨天的山海漫游",
+>   "cover_still": "stills/still_03.jpg",
+>   "platforms": ["wechat", "xhs"],
+>   "still_count": 9
+> }
+> ```
+> 其中 `cover_still` 若省略，agent 读 sheet 自己挑最佳帧；`title` 缺省回落到视频 `title.main`。
+
 ## 关键提醒
 
 - **字幕文案必须看图后写**，B-roll 素材无人声，语音识别只会返回空
@@ -222,6 +272,8 @@ python scripts/make_cover.py config.json --out cover.jpg
 | `pick_bgm.py` | 7 | 抓 Mixkit CC0 候选、实测能量曲线、推荐 |
 | `mix_audio.py` | 8 | 混 BGM + 响度校准 + 检测 |
 | `make_cover.py` | 9 | 生成封面（left / bottom 两种版式） |
+| `extract_stills.py` | 11 | 从成片抽静帧 + 封面候选拼图（社媒配图素材） |
+| `make_social_assets.py` | 11 | PIL 拼小红书封面(3:4) + 公众号头图(2.35:1) |
 
 所有脚本用 `python3 <script> --help` 或看文件头部的 docstring 查参数。
 
@@ -232,6 +284,7 @@ python scripts/make_cover.py config.json --out cover.jpg
 - `ffmpeg-with-libass.md` — 从源码构建带 libass/freetype 的 ffmpeg（macOS 完整配方 + 踩坑）
 - `platform-specs.md` — 视频号/抖音规格、画幅取舍、交付目录约定
 - `caption-writing.md` — 字幕文案写法、结构模板、时间轴排布
+- `social-copy.md` — 公众号长文 + 小红书笔记双模板、语气差异、配图布局、主题提炼
 
 ### assets/
 

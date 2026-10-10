@@ -61,5 +61,12 @@
     "fade_out_dur": 1.7,
     "license": "Mixkit CC0",
     "source": "https://mixkit.co/free-stock-music/"
+  },
+  "social": {
+    "title": "青岛啤酒博物馆",
+    "subtitle": "百年酒香 ｜ 一次喝遍青岛",
+    "cover_still": "stills/still_03.jpg",
+    "platforms": ["wechat", "xhs"],
+    "still_count": 9
   }
 }
