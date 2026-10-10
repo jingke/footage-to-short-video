@@ -8,6 +8,8 @@
   "fps": 30,
   "crf": 16,
   "xfade": 0.5,
+  "transitions": "auto",
+  "vignette": 0.2,
   "fade_in": 0.6,
   "fade_out": 0.7,
   "maxrate": "8M",
@@ -20,13 +22,13 @@
     "end": 6.0
   },
   "clips": [
-    { "file": "DJI_20260922095750_0261_D.MP4", "ss": 0.5, "dur": 8, "note": "博物馆外观" },
-    { "file": "DJI_20260922100038_0263_D.MP4", "ss": 1.0, "dur": 6, "note": "老两口合影" },
+    { "file": "DJI_20260922095750_0261_D.MP4", "ss": 0.5, "dur": 8, "note": "博物馆外观", "motion": "pan" },
+    { "file": "DJI_20260922100038_0263_D.MP4", "ss": 1.0, "dur": 6, "note": "老两口合影", "kenburns": {"zoom": 1.12, "dir": "in", "pan": "center"} },
     { "file": "DJI_20260922104354_0278_D.MP4", "ss": 0.5, "dur": 5, "note": "室内展区" },
-    { "file": "DJI_20260922105627_0283_D.MP4", "ss": 0.5, "dur": 7, "note": "品酒区" },
-    { "file": "DJI_20260922105804_0285_D.MP4", "ss": 2.0, "dur": 10, "note": "举杯干杯" },
+    { "file": "DJI_20260922105627_0283_D.MP4", "ss": 0.5, "dur": 7, "note": "品酒区", "reveal": true },
+    { "file": "DJI_20260922105804_0285_D.MP4", "ss": 2.0, "dur": 10, "note": "举杯干杯", "kenburns": true },
     { "file": "DJI_20260922110213_0287_D.MP4", "ss": 0.3, "dur": 4, "note": "啤酒节大屏" },
-    { "file": "DJI_20260922112734_0293_D.MP4", "ss": 8.0, "dur": 23, "note": "品鉴吧台" }
+    { "file": "DJI_20260922112734_0293_D.MP4", "ss": 8.0, "dur": 23, "note": "品鉴吧台", "motion": "orbit" }
   ],
   "captions": [
     { "start": 1.2, "end": 6.9, "text": "登州路 · 【百年啤酒街】" },
@@ -37,6 +39,10 @@
     { "start": 34.2, "end": 36.9, "text": "【青岛国际啤酒节】" },
     { "start": 38.2, "end": 50.5, "text": "精酿品鉴 · 【一次喝遍青岛】" },
     { "start": 52.0, "end": 59.4, "text": "来青岛，一定要来这儿【喝一杯】" }
+  ],
+  "pips": [
+    { "file": "DJI_20260922105804_0285_D.MP4", "ss": 0.0, "dur": 3, "scale": 0.28,
+      "corner": "br", "margin": 0.05, "border": 6, "at": [12.0, 15.0], "animate": "drift" }
   ],
   "cover": {
     "clip_index": 0,
